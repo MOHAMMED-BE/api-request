@@ -1,24 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosRequestHeaders } from "axios";
+import { ApiError, ApiRequestProps, ApiResponse } from './index.types'
 
-interface ApiResponse<T = any> {
-    data: T;
-    status: number;
-}
-
-interface ApiError {
-    message: string;
-    code: number;
-}
-
-interface ApiRequestProps<TBody = any> {
-    route: string;
-    method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
-    requiresAuth?: boolean;
-    data?: TBody;
-    headers?: AxiosRequestHeaders;
-    params?: Record<string, any>;
-    token?: string;
-}
 
 // interface Progress {
 //     loaded: number;
@@ -26,7 +8,7 @@ interface ApiRequestProps<TBody = any> {
 //     percentage: number;
 // }
 
-export function useApiRequest<T = any>() {
+function useApiRequest<T = any>() {
     // const [progress, setProgress] = useState<Progress>({ loaded: 0, total: 0, percentage: 0 });
 
     const apiRequest = async ({
@@ -110,3 +92,6 @@ function transformError(error: any): ApiError {
     }
     return { message: "An unexpected error occurred", code: 500 };
 }
+
+
+export default useApiRequest

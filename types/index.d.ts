@@ -1,1 +1,1 @@
-declare module '@mbs-dev/api-request';
+export { default } from './ApiRequest';

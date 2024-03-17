@@ -1,6 +1,6 @@
 {
   "name": "@mbs-dev/api-request",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "api request",
   "main": "dist/index.js",
   "types": "types/index.d.ts",

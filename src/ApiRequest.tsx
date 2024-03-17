@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig, AxiosRequestHeaders } from "axios";
+import axios from "axios";
 import { ApiError, ApiRequestProps, ApiResponse } from './index.types'
 
 
@@ -24,20 +24,22 @@ function useApiRequest<T = any>() {
         //     ...(requiresAuth && token ? { Authorization: `Bearer ${token}` } : {}),
         // };
 
-        // const authorizationHeader: Record<string, string> = {
+        const authorizationHeader: Record<string, string> = {
+            ...(requiresAuth && token ? { Authorization: `Bearer ${token}` } : {}),
+        };
+
+        // const authorizationHeader: AxiosRequestHeaders = {
+        //     ...(requiresAuth && token ? { Authorization: `Bearer ${token}` } : {}),
+        // } as AxiosRequestHeaders;
+
+        // const authorizationHeader: AxiosRequestHeaders = {
         //     ...(requiresAuth && token ? { Authorization: `Bearer ${token}` } : {}),
         // };
-
-        const authorizationHeader: AxiosRequestHeaders = {
-            ...(requiresAuth && token ? { Authorization: `Bearer ${token}` } : {}),
-        } as AxiosRequestHeaders;
 
         // const authorizationHeader: Partial<AxiosRequestHeaders> = {};
         // if (requiresAuth && token) {
         //     authorizationHeader.Authorization = `Bearer ${token}`;
         // }
-
-
 
         // const onUploadProgress = (progressEvent: ProgressEvent) => {
         //     const { loaded, total } = progressEvent;
@@ -59,25 +61,41 @@ function useApiRequest<T = any>() {
         //     });
         // };
 
-        const config: AxiosRequestConfig = {
-            method,
-            url: `${route}`,
-            data,
-            params,
-            headers: { ...authorizationHeader, ...headers },
-            // onUploadProgress: ['POST', 'PUT'].includes(method) ? onUploadProgress : undefined,
-            // onDownloadProgress: method === 'GET' ? onDownloadProgress : undefined,
-        };
+        //     const config: AxiosRequestConfig = {
+        //         method,
+        //         url: `${route}`,
+        //         data,
+        //         params,
+        //         headers: { ...authorizationHeader, ...headers },
+        //         // onUploadProgress: ['POST', 'PUT'].includes(method) ? onUploadProgress : undefined,
+        //         // onDownloadProgress: method === 'GET' ? onDownloadProgress : undefined,
+        //     };
+
+        //     try {
+        //         const response = await axios(config);
+
+        //         return response;
+
+        //     } catch (error) {
+        //         const apiError: ApiError = transformError(error);
+        //         throw apiError;
+        //     }
 
         try {
-            const response = await axios(config);
+            const response = await axios({
+                method,
+                url: route,
+                data: data,
+                params,
+                headers: { ...authorizationHeader, ...headers },
+            });
 
-            return response;
-
+            return { data: response.data, status: response.status };
         } catch (error) {
             const apiError: ApiError = transformError(error);
             throw apiError;
         }
+
     };
 
     return { apiRequest };

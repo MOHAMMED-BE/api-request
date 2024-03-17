@@ -54,26 +54,25 @@ var axios_1 = __importDefault(require("axios"));
 function useApiRequest() {
     var _this = this;
     var apiRequest = function (_a) { return __awaiter(_this, [_a], void 0, function (_b) {
-        var authorizationHeader, config, response, error_1, apiError;
+        var authorizationHeader, response, error_1, apiError;
         var route = _b.route, method = _b.method, _c = _b.requiresAuth, requiresAuth = _c === void 0 ? false : _c, data = _b.data, headers = _b.headers, params = _b.params, token = _b.token;
         return __generator(this, function (_d) {
             switch (_d.label) {
                 case 0:
                     authorizationHeader = __assign({}, (requiresAuth && token ? { Authorization: "Bearer ".concat(token) } : {}));
-                    config = {
-                        method: method,
-                        url: "".concat(route),
-                        data: data,
-                        params: params,
-                        headers: __assign(__assign({}, authorizationHeader), headers),
-                    };
                     _d.label = 1;
                 case 1:
                     _d.trys.push([1, 3, , 4]);
-                    return [4, (0, axios_1.default)(config)];
+                    return [4, (0, axios_1.default)({
+                            method: method,
+                            url: route,
+                            data: data,
+                            params: params,
+                            headers: __assign(__assign({}, authorizationHeader), headers),
+                        })];
                 case 2:
                     response = _d.sent();
-                    return [2, response];
+                    return [2, { data: response.data, status: response.status }];
                 case 3:
                     error_1 = _d.sent();
                     apiError = transformError(error_1);

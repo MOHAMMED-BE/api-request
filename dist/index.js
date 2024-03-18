@@ -4,5 +4,5 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = void 0;
-var ApiRequest_1 = require("./ApiRequest");
-Object.defineProperty(exports, "default", { enumerable: true, get: function () { return __importDefault(ApiRequest_1).default; } });
+var Request_1 = require("./Request");
+Object.defineProperty(exports, "default", { enumerable: true, get: function () { return __importDefault(Request_1).default; } });

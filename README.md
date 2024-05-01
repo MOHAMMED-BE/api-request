@@ -8,12 +8,8 @@ You can install `@mbs-dev/api-request` via npm or yarn:
 
 ```bash
 npm install @mbs-dev/api-request
-
 # or
-
 yarn add @mbs-dev/api-request
-
-
 ```
 ## Usage
 
@@ -22,7 +18,7 @@ Import Hook and Helpers:
 - 1
     Import the useApiRequest hook from the package:
 
-```javascript
+```js
   import useApiRequest from '@mbs-dev/api-request';
   ```
   
@@ -30,18 +26,18 @@ Import Hook and Helpers:
   ### Make API Requests:
 
   Use the apiRequest function within your components to execute API calls. Specify the following properties:
-  route: The API endpoint URL relative to your base URL (e.g., /users).
-  method: The HTTP method (e.g., 'GET', 'POST', 'PUT', 'DELETE').
-  data (optional): The data to be sent in the request body (e.g., using FormData or a plain object).
-  headers (optional): Additional headers to include (e.g., Content-Type).
-  params (optional): Query parameters to append to the URL.
-  requiresAuth (optional): A boolean indicating if the request requires an authentication token.
-  token (optional, if requiresAuth is true): The authentication token to include in the Authorization header.
+- `route`: The API endpoint URL relative to your base URL (e.g., /users).
+- `method`: The HTTP method (e.g., 'GET', 'POST', 'PUT', 'DELETE').
+- `data` (optional): The data to be sent in the request body (e.g., using FormData or a plain object).
+- `headers` (optional): Additional headers to include (e.g., Content-Type).
+- `params` (optional): Query parameters to append to the URL.
+- `requiresAuth` (optional): A boolean indicating if the request requires an authentication token.
+- `token` (optional, if requiresAuth is true): The authentication token to include in the Authorization header.
 
 
   ### Example Usage in a React TypeScript Component
 
-    ```javascript
+    ```js
     import useApiRequest from '@mbs-dev/api-request';
 
     const App: React.FC = () => {

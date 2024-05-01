@@ -15,7 +15,7 @@ export interface ApiRequestProps<TBody = any> {
     method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
     requiresAuth?: boolean;
     data?: TBody;
-    headers?: AxiosRequestHeaders;
+    headers?: AxiosRequestHeaders | {};
     params?: Record<string, any>;
     token?: string;
 }

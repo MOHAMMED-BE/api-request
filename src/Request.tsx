@@ -13,46 +13,10 @@ function useApiRequest<T = any>() {
         params,
         token,
     }: ApiRequestProps<T>): Promise<ApiResponse<T>> => {
-        // const authorizationHeader: AxiosRequestHeaders = {
-        //     ...(requiresAuth && token ? { Authorization: `Bearer ${token}` } : {}),
-        // };
 
         const authorizationHeader: Record<string, string> = {
             ...(requiresAuth && token ? { Authorization: `Bearer ${token}` } : {}),
         };
-
-        // const authorizationHeader: AxiosRequestHeaders = {
-        //     ...(requiresAuth && token ? { Authorization: `Bearer ${token}` } : {}),
-        // } as AxiosRequestHeaders;
-
-        // const authorizationHeader: AxiosRequestHeaders = {
-        //     ...(requiresAuth && token ? { Authorization: `Bearer ${token}` } : {}),
-        // };
-
-        // const authorizationHeader: Partial<AxiosRequestHeaders> = {};
-        // if (requiresAuth && token) {
-        //     authorizationHeader.Authorization = `Bearer ${token}`;
-        // }
-
-        //     const config: AxiosRequestConfig = {
-        //         method,
-        //         url: `${route}`,
-        //         data,
-        //         params,
-        //         headers: { ...authorizationHeader, ...headers },
-        //         // onUploadProgress: ['POST', 'PUT'].includes(method) ? onUploadProgress : undefined,
-        //         // onDownloadProgress: method === 'GET' ? onDownloadProgress : undefined,
-        //     };
-
-        //     try {
-        //         const response = await axios(config);
-
-        //         return response;
-
-        //     } catch (error) {
-        //         const apiError: ApiError = transformError(error);
-        //         throw apiError;
-        //     }
 
         try {
             const response = await axios({

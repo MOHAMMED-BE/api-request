@@ -55,10 +55,11 @@ function useApiRequest(_a) {
     var _this = this;
     var _b = _a === void 0 ? {} : _a, _c = _b.axiosInstance, axiosInstance = _c === void 0 ? axios_1.default : _c;
     var apiRequest = function (_a) { return __awaiter(_this, [_a], void 0, function (_b) {
-        var authorizationHeader, config, response, error_1, apiError;
-        var route = _b.route, method = _b.method, _c = _b.requiresAuth, requiresAuth = _c === void 0 ? false : _c, data = _b.data, headers = _b.headers, params = _b.params, token = _b.token;
-        return __generator(this, function (_d) {
-            switch (_d.label) {
+        var authorizationHeader, config, response, error_1, err;
+        var _c, _d, _e, _f, _g;
+        var route = _b.route, method = _b.method, _h = _b.requiresAuth, requiresAuth = _h === void 0 ? false : _h, data = _b.data, headers = _b.headers, params = _b.params, token = _b.token;
+        return __generator(this, function (_j) {
+            switch (_j.label) {
                 case 0:
                     authorizationHeader = __assign({}, (requiresAuth && token ? { Authorization: "Bearer ".concat(token) } : {}));
                     config = {
@@ -68,35 +69,30 @@ function useApiRequest(_a) {
                         params: params,
                         headers: __assign(__assign({}, authorizationHeader), headers)
                     };
-                    _d.label = 1;
+                    _j.label = 1;
                 case 1:
-                    _d.trys.push([1, 3, , 4]);
+                    _j.trys.push([1, 3, , 4]);
                     return [4, axiosInstance(config)];
                 case 2:
-                    response = _d.sent();
+                    response = _j.sent();
                     return [2, { data: response.data, status: response.status }];
                 case 3:
-                    error_1 = _d.sent();
-                    apiError = transformError(error_1);
-                    throw apiError;
+                    error_1 = _j.sent();
+                    if (error_1 && typeof error_1 === 'object' && 'response' in error_1) {
+                        err = error_1;
+                        throw {
+                            message: ((_d = (_c = err.response) === null || _c === void 0 ? void 0 : _c.data) === null || _d === void 0 ? void 0 : _d.message) ||
+                                ((_f = (_e = err.response) === null || _e === void 0 ? void 0 : _e.data) === null || _f === void 0 ? void 0 : _f.detail) ||
+                                err.message ||
+                                'An error occurred',
+                            code: ((_g = err.response) === null || _g === void 0 ? void 0 : _g.status) || 500,
+                        };
+                    }
+                    throw { message: 'An unexpected error occurred', code: 500 };
                 case 4: return [2];
             }
         });
     }); };
     return { apiRequest: apiRequest };
-}
-function transformError(error) {
-    var _a, _b, _c, _d, _e;
-    if (error && typeof error === 'object' && 'response' in error) {
-        var err = error;
-        return {
-            message: ((_b = (_a = err.response) === null || _a === void 0 ? void 0 : _a.data) === null || _b === void 0 ? void 0 : _b.message) ||
-                ((_d = (_c = err.response) === null || _c === void 0 ? void 0 : _c.data) === null || _d === void 0 ? void 0 : _d.detail) ||
-                err.message ||
-                'An error occurred',
-            code: ((_e = err.response) === null || _e === void 0 ? void 0 : _e.status) || 500,
-        };
-    }
-    return { message: 'An unexpected error occurred', code: 500 };
 }
 exports.default = useApiRequest;

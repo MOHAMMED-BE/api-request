@@ -1,6 +1,6 @@
 {
   "name": "@mbs-dev/api-request",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "A streamlined React hook for making robust API requests based on Axios.",
   "main": "dist/index.js",
   "types": "types/index.d.ts",

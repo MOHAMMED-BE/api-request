@@ -1,6 +1,5 @@
-// src/useApi.ts
 import { useCallback } from 'react';
-import { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 
 interface ApiError extends AxiosError {
   message: string;
@@ -11,17 +10,16 @@ interface UseApiReturn {
   apiCall: <T = unknown>(config: AxiosRequestConfig) => Promise<AxiosResponse<T>>;
 }
 
-export const useApi = (api: {
-  (config: AxiosRequestConfig): Promise<AxiosResponse>;
-}): UseApiReturn => {
+export const useApi = (api: AxiosInstance): UseApiReturn => {
 
   const apiCall = useCallback(
     async <T = unknown>(config: AxiosRequestConfig): Promise<AxiosResponse<T>> => {
       try {
-        const response = await api(config);
+        const response = await api.request(config);
         return response as AxiosResponse<T>;
       } catch (error) {
         const apiError = error as ApiError;
+
         throw apiError;
       }
     },

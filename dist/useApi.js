@@ -37,9 +37,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.useApi = void 0;
-var react_1 = require("react");
 var useApi = function (api) {
-    var apiCall = (0, react_1.useCallback)(function (config) { return __awaiter(void 0, void 0, void 0, function () {
+    var apiCall = function (config) { return __awaiter(void 0, void 0, void 0, function () {
         var response, error_1, apiError;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -56,7 +55,7 @@ var useApi = function (api) {
                 case 3: return [2];
             }
         });
-    }); }, [api]);
+    }); };
     return { apiCall: apiCall };
 };
 exports.useApi = useApi;

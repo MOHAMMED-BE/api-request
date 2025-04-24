@@ -1,5 +1,5 @@
 // src/hooks/useApiRequest.ts
-import axios, { AxiosRequestConfig, AxiosResponse, isAxiosError } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { ApiRequestProps, ApiResponse, ApiError } from './index.types';
 
 // Optional: Allow passing a custom Axios instance for flexibility
@@ -42,14 +42,16 @@ function useApiRequest<T = any>({ axiosInstance = axios }: UseApiRequestOptions 
 }
 
 function transformError(error: unknown): ApiError {
-    if (isAxiosError(error)) {
+    // Check if error is an Axios error by presence of response property
+    if (error && typeof error === 'object' && 'response' in error) {
+        const err = error as { response?: { data?: any; status?: number }; message?: string };
         return {
             message:
-                error.response?.data?.message ||
-                error.response?.data?.detail ||
-                error.message ||
+                err.response?.data?.message ||
+                err.response?.data?.detail ||
+                err.message ||
                 'An error occurred',
-            code: error.response?.status || 500,
+            code: err.response?.status || 500,
         };
     }
     return { message: 'An unexpected error occurred', code: 500 };

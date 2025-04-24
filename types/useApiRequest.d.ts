@@ -1,9 +1,25 @@
-import axios from 'axios';
-import { ApiRequestProps, ApiResponse } from './index.types';
-interface UseApiRequestOptions {
-    axiosInstance?: typeof axios;
+import { AxiosRequestConfig, AxiosInstance } from 'axios';
+export interface ApiRequestProps<T = any> {
+    route: string;
+    method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+    requiresAuth?: boolean;
+    token?: string;
+    data?: T;
+    params?: AxiosRequestConfig['params'];
+    headers?: Record<string, string>;
 }
-declare function useApiRequest<T = any>({ axiosInstance }?: UseApiRequestOptions): {
-    apiRequest: ({ route, method, requiresAuth, data, headers, params, token, }: ApiRequestProps<T>) => Promise<ApiResponse<T>>;
+export interface ApiResponse<T = any> {
+    data: T;
+    status: number;
+}
+export interface ApiError {
+    message: string;
+    code: number;
+}
+interface UseApiRequestOptions {
+    axiosInstance?: AxiosInstance;
+}
+export declare function useApiRequest({ axiosInstance }?: UseApiRequestOptions): {
+    apiRequest: <T = any>({ route, method, requiresAuth, data, params, headers, token }: ApiRequestProps) => Promise<ApiResponse<T>>;
 };
 export default useApiRequest;

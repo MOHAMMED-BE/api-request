@@ -10,6 +10,29 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -46,28 +69,25 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var axios_1 = __importDefault(require("axios"));
+exports.useApiRequest = void 0;
+var axios_1 = __importStar(require("axios"));
 function useApiRequest(_a) {
     var _this = this;
     var _b = _a === void 0 ? {} : _a, _c = _b.axiosInstance, axiosInstance = _c === void 0 ? axios_1.default : _c;
     var apiRequest = function (_a) { return __awaiter(_this, [_a], void 0, function (_b) {
-        var authorizationHeader, config, response, error_1, err;
+        var config, response, error_1, axiosError;
         var _c, _d, _e, _f, _g;
-        var route = _b.route, method = _b.method, _h = _b.requiresAuth, requiresAuth = _h === void 0 ? false : _h, data = _b.data, headers = _b.headers, params = _b.params, token = _b.token;
+        var route = _b.route, method = _b.method, _h = _b.requiresAuth, requiresAuth = _h === void 0 ? false : _h, data = _b.data, params = _b.params, headers = _b.headers, token = _b.token;
         return __generator(this, function (_j) {
             switch (_j.label) {
                 case 0:
-                    authorizationHeader = __assign({}, (requiresAuth && token ? { Authorization: "Bearer ".concat(token) } : {}));
                     config = {
                         method: method,
                         url: route,
                         data: data,
                         params: params,
-                        headers: __assign(__assign({}, authorizationHeader), headers)
+                        headers: __assign(__assign({}, (requiresAuth && token ? { Authorization: "Bearer ".concat(token) } : {})), headers)
                     };
                     _j.label = 1;
                 case 1:
@@ -75,24 +95,31 @@ function useApiRequest(_a) {
                     return [4, axiosInstance(config)];
                 case 2:
                     response = _j.sent();
-                    return [2, { data: response.data, status: response.status }];
+                    return [2, {
+                            data: response.data,
+                            status: response.status
+                        }];
                 case 3:
                     error_1 = _j.sent();
-                    if (error_1 && typeof error_1 === 'object' && 'response' in error_1) {
-                        err = error_1;
+                    if ((0, axios_1.isAxiosError)(error_1)) {
+                        axiosError = error_1;
                         throw {
-                            message: ((_d = (_c = err.response) === null || _c === void 0 ? void 0 : _c.data) === null || _d === void 0 ? void 0 : _d.message) ||
-                                ((_f = (_e = err.response) === null || _e === void 0 ? void 0 : _e.data) === null || _f === void 0 ? void 0 : _f.detail) ||
-                                err.message ||
-                                'An error occurred',
-                            code: ((_g = err.response) === null || _g === void 0 ? void 0 : _g.status) || 500,
+                            message: ((_d = (_c = axiosError.response) === null || _c === void 0 ? void 0 : _c.data) === null || _d === void 0 ? void 0 : _d.message) ||
+                                ((_f = (_e = axiosError.response) === null || _e === void 0 ? void 0 : _e.data) === null || _f === void 0 ? void 0 : _f.detail) ||
+                                axiosError.message ||
+                                'Request failed',
+                            code: ((_g = axiosError.response) === null || _g === void 0 ? void 0 : _g.status) || 500
                         };
                     }
-                    throw { message: 'An unexpected error occurred', code: 500 };
+                    throw {
+                        message: 'An unexpected error occurred',
+                        code: 500
+                    };
                 case 4: return [2];
             }
         });
     }); };
     return { apiRequest: apiRequest };
 }
+exports.useApiRequest = useApiRequest;
 exports.default = useApiRequest;

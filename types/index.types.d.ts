@@ -1,4 +1,4 @@
-import { AxiosRequestHeaders } from "axios";
+import { AxiosRequestHeaders } from 'axios';
 export interface ApiResponse<T = any> {
     data: T;
     status: number;
@@ -9,7 +9,7 @@ export interface ApiError {
 }
 export interface ApiRequestProps<TBody = any> {
     route: string;
-    method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
+    method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
     requiresAuth?: boolean;
     data?: TBody;
     headers?: AxiosRequestHeaders | {};

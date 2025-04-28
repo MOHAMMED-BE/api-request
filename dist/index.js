@@ -17,9 +17,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.useApi = exports.default = void 0;
+exports.createApi = exports.useApi = exports.default = void 0;
 var useApiRequest_1 = require("./useApiRequest");
 Object.defineProperty(exports, "default", { enumerable: true, get: function () { return __importDefault(useApiRequest_1).default; } });
 var useApi_1 = require("./useApi");
 Object.defineProperty(exports, "useApi", { enumerable: true, get: function () { return useApi_1.useApi; } });
+var api_1 = require("./api");
+Object.defineProperty(exports, "createApi", { enumerable: true, get: function () { return api_1.createApi; } });
 __exportStar(require("./index.types"), exports);

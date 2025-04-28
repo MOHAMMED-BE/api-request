@@ -53,7 +53,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.createApi = void 0;
 var axios_1 = __importDefault(require("axios"));
 var createApi = function (baseURL, token) {
-    var api = axios_1.default.create({
+    var api = axios_1.create({
         baseURL: baseURL,
     });
     api.interceptors.request.use(function (config) { return __awaiter(void 0, void 0, void 0, function () {

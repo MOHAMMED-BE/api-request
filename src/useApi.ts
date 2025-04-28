@@ -6,11 +6,11 @@ interface ApiError extends AxiosError {
 }
 
 interface UseApiReturn {
-  apiCall: <T = unknown>(config: AxiosRequestConfig) => Promise<AxiosResponse<T>>;
+  apiCall: <T = any>(config: AxiosRequestConfig) => Promise<AxiosResponse<T>>;
 }
 
 export const useApi = (api: AxiosInstance): UseApiReturn => {
-  const apiCall = async <T = unknown>(config: AxiosRequestConfig): Promise<AxiosResponse<T>> => {
+  const apiCall = async <T = any>(config: AxiosRequestConfig): Promise<AxiosResponse<T>> => {
     try {
       const response = await api(config);
       return response as AxiosResponse<T>;
